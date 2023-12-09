@@ -59,8 +59,38 @@ Using Soda, this can be done with .yaml files containing the rules that the data
 
 ## DBT
 
-Attends to Data Build Tool and it's one of the hot topics in the field. 
+Attends to Data Build Tool and it's one of the hot topics in the field. DBT is a tool that enables analysts and engineer to transform data into their warehouses, it works like a shell to this warehouses, you can modify the data using the DBT UI but the final product will be held into your warehouse(eg. databricks, snowflake, bigquery, synapse, redshift).
+
+DBT is the **T** in the ELT process, hence it's responsible for the final stage of the pipeline. 
+
+Besides using the DBT Cloud its possible to use the CLI, in which users can write code in their editor and then invoke dbt, that'll compile the code and execute against the configured DW. Moreover, it's possible to test your results by writing statements in a .yaml file, this way contributing to solve one of the biggest challenges in the data field nowadays, the quality check.
 
 ## Metabase
 
+Metabase is an open source tool focused on providing insights through the creation of dashboards, it's possible to use it on the web without the need to download.  
+
 # The project
+
+This project will showcase an end-to-end pipeline using the above tools in the following way:
+
+ * Airflow will extract a local data 
+ * GCS will receivet it
+ * Airflow again will move it from GCS to Bigquery
+ * Quality check on raw data
+ * DBT will transform raw data into accurated data
+ * Quality check on accurated data
+ * Create report with DBT
+ * Quality check on reports
+ * Metabase to show the data
+
+In a more visual way, the pipeline will stands as:
+
+<img width="1347" alt="Screenshot 2023-12-09 at 11 59 24" src="https://github.com/LucasbFontes/airflow_soda_dbt/assets/68716835/9551e3ac-eeb3-4970-bf1b-ab596e4faaf5">
+
+## Airflow Operators
+
+Airflow operators will be used to orchestrate all the data movimentation, operators are building blocks of DAG's, they contain the logic of how we are going to process the data, from where we're going to move it and where to put it.
+
+There're different types of operators some more specific than others, also some operators works specific with one technology in this case I used operators to GCS, Bigquery and DBT.
+
+![Screenshot 2023-12-09 at 14 35 36](https://github.com/LucasbFontes/airflow_soda_dbt/assets/68716835/56d8c567-1873-4cfb-836d-ebac78bfd3ef)
