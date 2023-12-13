@@ -117,7 +117,11 @@ In order to validate the data that's going through the pipeline, yaml files were
   * Create a surrogate key based on this columns
   * Filter rows with customer_id null
   * Joined the cte with the country table.
- 
+
+  And since DBT works as a shelter to our Modern DataWarehouse, after the sql runs our bigquery will automatically have the following new tables
+  
+ <img width="434" alt="Screenshot 2023-12-12 at 21 41 08" src="https://github.com/LucasbFontes/airflow_soda_dbt/assets/68716835/ad7ef1d4-b645-4a6d-9c2e-83d3e56367e7">
+
 ## Metabase
 
 The endpoint of our pipeline, after the airflow runs all the reports and validations our dashboard will look like this:
