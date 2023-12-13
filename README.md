@@ -93,4 +93,34 @@ Airflow operators will be used to orchestrate all the data movimentation, operat
 
 There're different types of operators some more specific than others, also some operators works specific with one technology in this case I used operators to GCS, Bigquery and DBT.
 
+Below it's possible to see an airflow operator example.
+
 ![Screenshot 2023-12-09 at 14 35 36](https://github.com/LucasbFontes/airflow_soda_dbt/assets/68716835/56d8c567-1873-4cfb-836d-ebac78bfd3ef)
+
+## Soda checks
+
+In order to validate the data that's going through the pipeline, yaml files were created to check the quality of the data.
+
+<img width="330" alt="Screenshot 2023-12-12 at 21 17 26" src="https://github.com/LucasbFontes/airflow_soda_dbt/assets/68716835/2fadff7d-9bbd-4e0e-acca-25c4b582d52e">
+
+* The schema check will fail in case of customer_id and country columns are missing, and in case this same columns have different types than string.
+* Also checks if the column customer_id has duplicates, and print "All customers are unique" when no duplicates found
+* Customer_id cannot have missing values.
+
+## DBT tables
+
+  DBT creates tables and put it on bigquery, below we have an example
+  
+  <img width="727" alt="Screenshot 2023-12-12 at 21 25 30" src="https://github.com/LucasbFontes/airflow_soda_dbt/assets/68716835/39becb40-3ee5-45e8-bf2e-38af4cea5c30">
+
+  * Selects customer_id and country columns from raw_invoices
+  * Create a surrogate key based on this columns
+  * Filter rows with customer_id null
+  * Joined the cte with the country table.
+ 
+## Metabase
+
+The endpoint of our pipeline, after the airflow runs all the reports and validations our dashboard will look like this:
+
+![Screenshot 2023-12-02 at 17 50 25](https://github.com/LucasbFontes/airflow_soda_dbt/assets/68716835/66641d96-909e-4735-9a48-255b5c72a4c7)
+
